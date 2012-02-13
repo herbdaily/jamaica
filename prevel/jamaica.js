@@ -49,9 +49,12 @@ j={
     pl.ajax(j.make_ajax_params.call(this,{data:pl.serialize(this.id)}))
   },
   toggleColStat:function(e){
-    pl(this).toggleClass("editing");
-    pl(this).toggleClass("editable");
-    if(pl(this).hasClass("editing")){pl(this).children("input,textarea").focus();}
+    p=pl(this)
+    p.toggleClass("editing").toggleClass("editable");
+    if(p.hasClass("editing")){
+      p.append(pl('<input>',{type:'submit',value:'save'}).get());
+      p.children().get()[0].focus();
+    }
   },
   colEditKeypress:function(e){
   },

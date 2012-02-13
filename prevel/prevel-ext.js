@@ -41,9 +41,4 @@ pl.extend(pl.fn,{
   parents: function(selector) {
     return pl.parents(this.elements[0], selector);
   },
-  children: function() {
-    this.elements = [this.elements[0].childNodes];
-    return this;
-  },
-        
 },true);

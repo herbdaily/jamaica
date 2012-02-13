@@ -78,7 +78,6 @@ Reggae=function(target){
       }
       var contents=attrs.description ? [["div",{"class":"form_description"}, attrs.description]] : [];
       if(! attrs.new_rec){
-        frm[1].action+="/"+attrs.schema[0][VALUE_INDEX]
         contents.push(["input",{"type":"hidden","name":"_method","value":"put"}])
       }
       pl.each(attrs.schema, function(i,col){
@@ -94,7 +93,6 @@ Reggae=function(target){
             contents.push(["input",props]);
           }
         } else{
-          if (! attrs.new_rec) {props["class"]="hidden "} //hide the actual controls in existing records
           if (col[RESTRICTIONS_INDEX] & RESTRICT_RO) {
             if (props.value.constructor==Array) {props.value=props.value[1];}  //many_to_one 
             delete props.name;
