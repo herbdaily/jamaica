@@ -4,10 +4,9 @@ module Marley
     # is a simple HTML page that is intended to be run in a browser.
     # It will have its actual UI metadata in the global variable '_jamaica_json'
     # and onDocumentReady, this will be turned into the client UI.
-    CLIENT_DIR=File.dirname(__FILE__)
-    #LIBS = [ 'jquery-1.6.2.js', 'jquery.form.js', 'jamaica.js' ]
-    #LIBS = ['prevel-full.js','prevel-dom-ext.js','prevel-ajax-ext.js','prevel-core-ext.js','jamaica.js','reggae.js'] 
-    LIBS = ['ender.js','jamaica.js','reggae.js'] 
+    CLIENT_DIR="#{File.dirname(__FILE__)}/client/"
+    LIBS = Dir.glob("#{CLIENT_DIR}*.js")
+    p LIBS
     STYLES = [ 'jamaica.css' ]
     def initialize(opts={})
       @opts={:name => 'Application',:css => '', :js => ''}.merge(opts)
@@ -30,8 +29,8 @@ module Marley
       <<-EOHTML
       <head>
         <title>#{@opts[:app_name]}</title>
-        <script type='text/javascript'>var _jamaica_json=#{json}; #{ LIBS.map{ |x| File.new("#{CLIENT_DIR}/" + x).read }.push(@opts[:js]).join("\n") }</script>
-        <style>#{ STYLES.map{ |x| File.new("#{CLIENT_DIR}/" + x).read }.push(@opts[:css]).join("\n") }
+        <script type='text/javascript'>var _jamaica_json=#{json}; #{ LIBS.map{ |l| File.new(l).read }.push(@opts[:js]).join("\n") }</script>
+        <style>#{ STYLES.map{ |s| File.new("#{CLIENT_DIR}#{s}").read }.push(@opts[:css]).join("\n") }
       </head>
       <body></body>
       EOHTML
