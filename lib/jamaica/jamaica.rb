@@ -4,12 +4,11 @@ module Marley
     # is a simple HTML page that is intended to be run in a browser.
     # It will have its actual UI metadata in the global variable '_jamaica_json'
     # and onDocumentReady, this will be turned into the client UI.
-    CLIENT_DIR="#{File.dirname(__FILE__)}/client/"
-    LIBS = Dir.glob("#{CLIENT_DIR}*.js")
-    p LIBS
-    STYLES = [ 'jamaica.css' ]
     def initialize(opts={})
       @opts={:name => 'Application',:css => '', :js => ''}.merge(opts)
+      @client_dir="#{File.dirname(__FILE__)}/client/"
+      @libs = Dir.glob("#{@client_dir}*.js")
+      @styles = [ 'jamaica.css' ]
     end
     def joint(joint_d,joint_name)
       [:css,:js].each do |ext|
@@ -29,8 +28,8 @@ module Marley
       <<-EOHTML
       <head>
         <title>#{@opts[:app_name]}</title>
-        <script type='text/javascript'>var _jamaica_json=#{json}; #{ LIBS.map{ |l| File.new(l).read }.push(@opts[:js]).join("\n") }</script>
-        <style>#{ STYLES.map{ |s| File.new("#{CLIENT_DIR}#{s}").read }.push(@opts[:css]).join("\n") }
+        <script type='text/javascript'>var _jamaica_json=#{json}; #{ @libs.map{ |l| File.new(l).read }.push(@opts[:js]).join("\n") }</script>
+        <style>#{ @styles.map{ |s| File.new("#{@client_dir}#{s}").read }.push(@opts[:css]).join("\n") }
       </head>
       <body></body>
       EOHTML
