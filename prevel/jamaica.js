@@ -12,6 +12,7 @@ pl(function(){
   pl.win_bind('form','submit',j.formSubmit);
   pl.win_bind('ul.navigation li a','click',j.menuClick);
   pl.win_bind('.editable','click',j.toggleColStat);
+  pl.win_bind('.editing input,.editing textarea','keydown',j.colEditKeydown);
 });
 
 j={
@@ -45,18 +46,21 @@ j={
     pl.ajax(j.make_ajax_params.call(this,{success:function(json){Reggae.call(json,target)}}))
   },
   formSubmit:function(e){
-    e.preventDefault();
     pl.ajax(j.make_ajax_params.call(this,{data:pl.serialize(this.id)}))
+    e.preventDefault();
   },
   toggleColStat:function(e){
-    p=pl(this)
+    p=this.selector ? this : pl(this);
     p.toggleClass("editing").toggleClass("editable");
     if(p.hasClass("editing")){
       p.append(pl('<input>',{type:'submit',value:'save'}).get());
       p.children().get()[0].focus();
     }
   },
-  colEditKeypress:function(e){
+  colEditKeydown:function(e){
+    if (e.keyCode==27){
+      j.toggleColStat.call(pl(this).parents('.editing'));
+    }
   },
   instanceActionClick:function(e){
   },

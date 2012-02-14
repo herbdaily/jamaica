@@ -15,14 +15,15 @@ pl.extend({
   },
   win_bind:function(selector,evt,fn){
     window.addEventListener(evt, function(e){
-      elems=pl(selector).get()
-      if (elems==e.target || pl.filter(elems, function(el){return el==e.target}).length > 0){
+      var elems=pl(selector).get();
+      if (elems===e.target || pl.filter(elems, function(el){return el==e.target}).length > 0){
         fn.call(e.target,e);
       }
     });
   },
+           /*
   selectedBy: function(elem,selector) {
-    elems=pl(selector).get()
+    var elems=pl(selector).get()
     return (elems===elem || pl.filter(elems, function(el){return el==elem}).length > 0)
   },
   parents: function(elem, selector) {
@@ -33,8 +34,9 @@ pl.extend({
       return ret.concat(pl.parents(p,selector));
     }
   },
+  */
 });
-pl.extend(pl.fn,{
+/*pl.extend(pl.fn,{
   selectedBy: function(selector) {
     return pl.selectedBy(this.get(),selector);
   },
@@ -42,3 +44,4 @@ pl.extend(pl.fn,{
     return pl.parents(this.elements[0], selector);
   },
 },true);
+*/

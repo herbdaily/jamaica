@@ -69,7 +69,7 @@ Reggae=function(target){
     "instance":function(i) {
       var ctl;
       var attrs=i.attrs;
-      var instance_id=attrs.new_rec ? 'new' : attrs.schema[0][VALUE_INDEX]
+      var instance_id=attrs.new_rec ? 'new' : attrs.url.replace(/.*\//,'')
       if (attrs.search){
         attrs.new_rec=true;
         var frm=["form",{"action":attrs.url,"method":"get","class":"search","id":attrs.name+'__search__form'}];
