@@ -53,8 +53,10 @@ j={
     p=this.selector ? this : pl(this);
     p.toggleClass("editing").toggleClass("editable");
     if(p.hasClass("editing")){
-      p.append(pl('<input>',{type:'submit',value:'save'}).get());
+      if (p.children('input[type=submit]').get().length==0) p.append(pl('<input>',{type:'submit',value:'save'}).get());
       p.children().get()[0].focus();
+    } else {
+      p.children('input[type=text],textarea').val(p.children('span').html())
     }
   },
   colEditKeydown:function(e){
