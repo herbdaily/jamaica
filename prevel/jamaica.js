@@ -13,6 +13,7 @@ pl(function(){
   pl.win_bind('ul.navigation li a','click',j.menuClick);
   pl.win_bind('.editable','click',j.toggleColStat);
   pl.win_bind('.editing input,.editing textarea','keydown',j.colEditKeydown);
+  pl.win_bind('.instanceAction','click',j.instanceActionClick);
 });
 
 j={
@@ -46,8 +47,8 @@ j={
     pl.ajax(j.make_ajax_params.call(this,{success:function(json){Reggae.call(json,target)}}))
   },
   formSubmit:function(e){
-    pl.ajax(j.make_ajax_params.call(this,{data:pl.serialize(this.id)}))
     e.preventDefault();
+    pl.ajax(j.make_ajax_params.call(this,{data:pl.serialize(this.id)}))
   },
   toggleColStat:function(e){
     p=this.selector ? this : pl(this);
@@ -65,6 +66,9 @@ j={
     }
   },
   instanceActionClick:function(e){
+    var frm=pl(this).parents('form');
+    var url=frm.attr('action')+'/'+pl(this).attr('class').replace(/.* /,'');
+    pl.ajax(j.make_ajax_params.call({href:url},{success:function(json){frm.after(Reggae.call(json))}}))
   },
   deleteResource:function(e){
   },
