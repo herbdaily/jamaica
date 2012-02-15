@@ -68,7 +68,7 @@ j={
   instanceActionClick:function(e){
     var frm=pl(this).parents('form');
     var url=frm.attr('action')+'/'+pl(this).attr('class').replace(/.* /,'');
-    pl.ajax(j.make_ajax_params.call({href:url},{success:function(json){frm.after(Reggae.call(json))}}))
+    pl.ajax(j.make_ajax_params.call({href:url},{success:function(json){frm.after(Reggae.call(json).toDom())}}))
   },
   deleteResource:function(e){
   },

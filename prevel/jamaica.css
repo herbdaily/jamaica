@@ -115,6 +115,7 @@ input[type=submit]:hover,
 			border-radius: 8px;
 			margin: 0 0 2em;
 		}
+		.instanceContainer .instanceContainer{margin:0 0 2em 2em;}
 		.colContainer div {
 			display: inline-block;
 		}
