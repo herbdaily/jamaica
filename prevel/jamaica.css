@@ -66,6 +66,7 @@ label {
   padding: 0 .5em 0 0;
 }
 input[type=submit],
+input[type=button],
 #main_menu__section .navigation li a,
 .instanceActions a {
 	background: -webkit-linear-gradient(top, #c9de96 0%, #398235 100%);
@@ -82,6 +83,7 @@ input[type=submit],
 	width: auto;
 }
 input[type=submit]:hover,
+input[type=button]:hover,
 .navigation li a:hover,
 .instanceActions a:hover {
 	background: -moz-linear-gradient(top, #398235 0%, #c9de96 100%);
@@ -121,7 +123,8 @@ input[type=submit]:hover,
 		}
 		.instanceActions {overflow: hidden;}
 			.instanceActions a,
-			.instance input[type=submit] {
+			.instance input[type=submit],
+      .instance input[type=button]{
 				float: right;
 				margin: 0;
 				width: auto;

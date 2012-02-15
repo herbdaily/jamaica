@@ -14,6 +14,7 @@ pl(function(){
   pl.win_bind('.editable','click',j.toggleColStat);
   pl.win_bind('.editing input,.editing textarea','keydown',j.colEditKeydown);
   pl.win_bind('.instanceAction','click',j.instanceActionClick);
+  pl.win_bind('input[value=delete]','click',j.deleteInstance);
 });
 
 j={
@@ -70,6 +71,6 @@ j={
     var url=frm.attr('action')+'/'+pl(this).attr('class').replace(/.* /,'');
     pl.ajax(j.make_ajax_params.call({href:url},{success:function(json){frm.after(Reggae.call(json).toDom())}}))
   },
-  deleteResource:function(e){
+  deleteInstance:function(e){
   },
 }

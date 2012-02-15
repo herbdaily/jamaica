@@ -40,7 +40,7 @@ Reggae=function(target){
     "post":function(){},
     "put":function(){},
     "delete":function(){
-      this.push(['input',{"type":"submit", "value":"delete"}])
+      this.push(['input',{"type":"button", "value":"delete"}])
     }
   };
   var id2name=function (s) {
