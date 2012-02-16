@@ -72,5 +72,7 @@ j={
     pl.ajax(j.make_ajax_params.call({href:url},{success:function(json){frm.after(Reggae.call(json).toDom())}}))
   },
   deleteInstance:function(e){
+    var frm=pl(this).parents('form');
+    pl.ajax({url:frm.attr('action'),type:'POST',data:{_method:'delete'},success:function(){frm.remove()}})
   },
 }
