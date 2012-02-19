@@ -1,4 +1,4 @@
-/* Prevel Library v1.1.2
+/* Prevel Library v1.0.0
  * http://github.com/chernikovalexey/Prevel
  * 
  * Copyright 2011-2012, Alexey Chernikov
@@ -163,7 +163,18 @@
       }
     },
     
-    inArray: function(a, c, b, r){
+    // Moved from Core Extension
+    filter: function(array, reservation) {
+      var output = [];
+      pl.each(array, function(k, val) {
+        if(reservation(val)) {
+          output.push(val);
+        }
+      });
+      return output;
+    },
+    
+    inArray: function(a, c, b, r) {
       if(indexOf) return c.indexOf(a, b);
       for(b = b > 0 || -1, r = -1; ++b < c.length && !~r; r = c[b] === a ? b : r);
       return r;
@@ -850,7 +861,8 @@
         '!=': function(child, attr, value) {
           return 
             !(attr = child.getAttribute(attr)) || 
-            !(new RegExp('(^| +)' + value + '($| +)').test(attr));
+            !(new RegExp('(^| +)' + value + '($| +)').test(attr)) ||
+            true;
         }
       },
       
@@ -1011,6 +1023,8 @@
               value = attrs[3];
 
           while(node = nodes[i++]) {
+            console.log('216:', eql);
+            
             if(
              _.attr[eql] && 
              (
@@ -1033,7 +1047,7 @@
           break;
         }
       } else {
-        if(qsSupport && selector.indexOf('!=') == -1) {     
+        if(qsSupport && !~selector.indexOf('!=')) {
           sets = root.querySelectorAll(
             selector.replace(/=([^\]]+)/, '="$1"')
           );
@@ -1096,6 +1110,8 @@
                     childs = child[ge + 'sByTagName'](tag);
                     h = 0;
     
+                    console.log('304: ...');
+                    
                     while(item = childs[h++]) {
                       if(
                          (!id || item.id === id) && 
@@ -1125,8 +1141,10 @@
                            mod
                          )
                       ) {
+                        console.log('Passed.');
+                        
                         if(last) {
-                        item.yeasss = 1;
+                          item.yeasss = 1;
                         }
                         newNodes[idx++] = item;
                       }
@@ -1565,23 +1583,12 @@
   pl.extend({    
     map: function(array, fn) {
       var output = [];
-      pl.each(array, function(k) {
-        output[k] = fn(this);
+      pl.each(array, function() {
+        output.push(fn(this));
       });
       return output;
     },
     
-    filter: function(array, reservation) {
-      var output = [],
-          key    = 0;
-      pl.each(array, function(k, val) {
-        if(reservation(val)) {
-          output[key++] = val;
-        }
-      });
-      return output;
-    },
-     
     every: function(array, reservation) {
       var flag = true;
       pl.each(array, function(k, val) {
@@ -1765,30 +1772,59 @@
 **/
 
 (function(win, doc, undefined) {
+  
+  /* NOTE:
+   * this.elements (in pl() instance) always exists, so checking if this.elements equals true
+   * is senseless, it will be always true. Much better will be checking if it's empty or 
+   * trying to compare the first element with false values (false, null, undefined).
+   * 
+   * Examples:
+   * this.elements[0] || ...
+   * pl.empty(this.elements)
+   * this.elements[0] !== undefined
+  **/
+  
   pl.extend({
-    selectedBy: function(elem,selector) {
-      var elems=pl(selector).get()
-      return (elems===elem || pl.filter(elems, function(el){return el==elem}).length > 0)
+    selectedBy: function(elem, selector) {
+      var elems = pl(selector).get();
+      return elems === elem || pl.filter(elems, function(el) {
+        return el === elem;
+      }).length > 0;
     },
 
-    related:function(elem,fn,mod){
-      var ret=pl();
-      ret.selector=[elem.id,fn,mod];
-      if (pl.type(mod,'int')){
-        var func=function(e,step){
-          return step > 0 ? func(e[fn], --step) : e;
-        }
+    related: function(elem, fn, mod) {
+      if(pl.type(mod, 'undef')) {
+        mod = 1;
+      }
+      
+      var get;
+      var ret = pl();
+      ret.selector = [elem.id, fn, mod];
+      
+      if(pl.type(mod, 'int')) {
+        get = function(e, step) {
+          return step > 0 ? get(e[fn], --step) : e;
+        };
       } else {
-        var func=function(e,selector){
-          var ret=[];var rel,i;
-          if (rel=e[fn]){
-            if( !selector||pl.selectedBy(rel,selector)) ret.push(rel);
-            if (i=func(rel,selector)) return ret.concat(i);
+        get = function(e, selector) {
+          var ret = [];
+          var rel, i;
+          
+          if(rel = e[fn]) {
+            if(!selector || pl.selectedBy(rel, selector)) {
+              ret.push(rel);
+            }
+            
+            if(i = get(rel, selector)) {
+              return ret.concat(i);
+            }
+            
             return ret;
           }
-        }
+        };
       }
-      ret.elements=func(elem,mod);
+      
+      ret.elements = get(elem, mod);
       return ret;
     }
   });
@@ -1834,30 +1870,44 @@
         return this.elements[0].value;
       }
     },
-    
-    selectedBy: function(selector) {
-      return pl.selectedBy(this.get(),selector);
-    },
 
     prev: function(iterations) {
-      return pl.related(this.elements[0],'previousSibling',iterations||1);
+      return pl.related(this.elements[0], 'previousSibling', iterations);
     },
     
     next: function(iterations) {
-      return pl.related(this.elements[0],'nextSibling',iterations||1);
+      return pl.related(this.elements[0], 'nextSibling', iterations);
     },
     
     children: function(selector) {
-      var children=pl.related(this.elements ? this.elements[0] : this,'children',1);
-      if (selector) 
-        children.elements=pl.filter(children.elements,function(e){
+      var children = pl.related(this.elements[0] || this, 'children');
+      if(selector) {
+        children.elements = pl.filter(children.elements, function(e) {
           return pl.selectedBy(e, selector);
         });
+      }
       return children;
     },
 
+    find: function(selector) {
+      var children = pl.related(this.elements[0] || this, 'children');
+      var list = [];
+      pl.each(children.elements, function(k, v) {
+        if(pl.selectedBy(this, selector)) {
+          list.push(v);
+        } else if(pl.type(v, 'obj')) {
+          var found = pl(this).find(selector).get();
+          found = pl.type(found, 'arr') ? found : [found];
+          list = list.concat(found);
+        }
+      });
+      
+      children.elements = list;
+      return children;
+    },
+    
     parents: function(selector) {
-      return pl.related(this.elements ? this.elements[0] : this,'parentNode',selector);
+      return pl.related(this.elements[0] || this, 'parentNode', selector || '*');
     },
     
     replaceWith: function(el, options) {
@@ -1878,7 +1928,6 @@
   });
   
 })(this, document);
-
 
 /* Prevel Storage Extension
  * (provides functionality for interacting with cookies, localstorage, ...)
