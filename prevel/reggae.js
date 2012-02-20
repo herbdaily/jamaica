@@ -54,7 +54,7 @@ Reggae=function(target){
       return ["a",{"href":l.attrs.url},l.attrs.title];
     },
     "msg":function(m){
-      return ["p",{"class":"message"},m.content];
+      return ["div",{"class":"message"},[["h2",{},m[1].title],["p",{},m[1].content]]];
     },
     "section":function(m){
       var attrs=m.attrs;
@@ -63,7 +63,7 @@ Reggae=function(target){
         [ ["h1",{},attrs.title],
         ["div",{"class":"menuDescription"},attrs.description],
         ["ul",{"id":attrs.name+"__navigation","class":"navigation"},nav],
-        ["div",{"id":attrs.name+"__content","class":"content"}," "] ]
+        ["div",{"id":attrs.name+"__content","class":"content"},m.content[0] ? m.content : " "] ]
       ];
     },
     "instance":function(i) {
