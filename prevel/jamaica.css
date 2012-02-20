@@ -1,6 +1,3 @@
-html, body, div, span, h1, p, strong, ul, li, form, label {margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent;}
-input {vertical-align:middle;}
-h1 {font-weight: bold;}
 body {background: #C9DE96; color: #000; font:13px/1.231 sans-serif; *font-size:small;height: 100%; min-height: 100%;}
 input, textarea {
 	border: 1px solid #398235;
@@ -8,10 +5,10 @@ input, textarea {
   margin: 0;
 }
 textarea {
-	height: 150px;
+	height: 10em;
 	line-height: 1.25em;
-	margin: 0 0 1em;
-	width: 100%;
+	margin: .5em 0;
+	width: 100%%;
   overflow: auto;
 }
 .hidden {display: none;}
@@ -34,29 +31,6 @@ textarea {
   float: none;
   margin: 0 0 0 5px;
 }
-#main_menu__section {
-	background: #fff;
-	border: 1px solid #398235;
-	-moz-border-radius: 1em;
-	border-radius: 1em;
-	-moz-box-shadow: 0 0 10px rgba(51,51,51,0.5);
-	box-shadow: 0 0 10px rgba(51,51,51,0.5);
-	margin: 2em auto;
-	width: 90%;
-}
-	#main_menu__section > h1 {
-		background: #398235;
-		border-bottom: 1px solid #398235;
-		-moz-border-radius-topright: .5em;
-		-moz-border-radius-topleft: .5em;
-		border-top-right-radius: .5em;
-		border-top-left-radius: .5em;
-		color: #fff;
-		font: bold 167%/150% "Rockwell STD", Rockwell, serif;
-		margin: 0 0 1em;
-		text-align: center;
-		text-transform: capitalize;
-	}
 label {
 	color: #398235;
 	display: inline-block;
@@ -65,9 +39,9 @@ label {
   text-align:right;
   padding: 0 .5em 0 0;
 }
-input[type=submit],
 input[type=button],
-#main_menu__section .navigation li a,
+input[type=submit],
+.navigation li a,
 .instanceActions a {
 	background: -webkit-linear-gradient(top, #c9de96 0%, #398235 100%);
 	background: -moz-linear-gradient(top, #c9de96 0%, #398235 100%);
@@ -80,9 +54,12 @@ input[type=button],
 	padding: .5em 1em;
 	text-decoration: none;
 	text-transform: uppercase;
-	width: auto;
 }
-input[type=submit]:hover,
+.navigation li a {
+  display:block;
+  text-align:center;
+  min-width:15em;
+}
 input[type=button]:hover,
 .navigation li a:hover,
 .instanceActions a:hover {
@@ -90,26 +67,55 @@ input[type=button]:hover,
 	background: linear-gradient(top, #398235 0%,#c9de96 100%);
 	color: #fff;
 	cursor: pointer;
-	font-weight: bold;
+}
+
+#main_menu__section {
+	background: #fff;
+	border: 1px solid #398235;
+	-moz-border-radius: 1em;
+	border-radius: 1em;
+	-moz-box-shadow: 0 0 10px rgba(51,51,51,0.5);
+	box-shadow: 0 0 10px rgba(51,51,51,0.5);
+	margin: 2em auto;
+	width: 90%;
+}
+#main_menu__section > h1 {
+  background: #398235;
+  border-bottom: 1px solid #398235;
+  -moz-border-radius-topright: .5em;
+  -moz-border-radius-topleft: .5em;
+  border-top-right-radius: .5em;
+  border-top-left-radius: .5em;
+  color: #fff;
+  font: bold 167%/150% "Rockwell STD", Rockwell, sans-serif;
+  margin: 0 0 1em;
+  text-align: center;
+  text-transform: capitalize;
 }
 #main_menu__navigation {
 	border-bottom: 1px solid #398235;
 	margin: 0 2em 2em;
 	padding: 0 0 2em;
 	text-align: center;
+  min-width:15em;
+  vertical-align:top;
 }
 #main_menu__navigation li {
 	display: inline-block;
 	margin: 0 2em;
+  width:auto;
 }
-
+.content .section h1 {
+  padding 0;
+  margin: 0 2em;
+}
 		.navigation li {
-			display: block;
+      list-style:none;
 			margin: 2em 1em;
 		}
     .content .navigation, .content .content {display:inline-block;}
-    .content .navigation {min-width:15em;vertical-align:top;}
-    .content .content {width:80%;}
+    .content .navigation {min-width:20em;width:15%;}
+    .content .content {width:auto;min-width:50%;}
 		.instanceContainer {
       position:relative;
 			border: 1px solid #398235;
