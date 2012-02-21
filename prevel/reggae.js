@@ -54,7 +54,7 @@ Reggae=function(target){
       return ["a",{"href":l.attrs.url},l.attrs.title];
     },
     "msg":function(m){
-      return ["div",{"class":"message"},[["h2",{},m[1].title],["p",{},m[1].content]]];
+      return ["div",{"class":"message"},[["h2",{},m[1].title],["p",{},m[1].description]]];
     },
     "section":function(m){
       var attrs=m.attrs;

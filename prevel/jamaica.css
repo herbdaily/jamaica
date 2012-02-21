@@ -60,6 +60,9 @@ input[type=submit],
   text-align:center;
   min-width:15em;
 }
+.navigation li p a {
+  display:inline-block;
+}
 input[type=button]:hover,
 .navigation li a:hover,
 .instanceActions a:hover {

@@ -44,7 +44,7 @@ j={
   },
   menuClick:function(e){
     e.preventDefault();
-    var target='#'+pl(this).parent().attr('class').replace(/__nav$/,'__content')
+    var target='#'+pl(this).parents('.navigation').attr('id').replace(/__navigation$/,'__content');
     pl.ajax(j.make_ajax_params.call(this,{success:function(json){Reggae.call(json,target)}}))
   },
   formSubmit:function(e){
