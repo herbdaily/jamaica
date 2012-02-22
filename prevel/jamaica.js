@@ -7,7 +7,7 @@ RESTRICTIONS_INDEX=2;
 VALUE_INDEX=3;
 String.prototype.humanize=function(){return pl.map(this.replace(/^_/,'').split('_'),function(w){return w[0].toUpperCase()+w.slice(1)}).join(' ');}
 pl(function(){
-  Reggae.call(_jamaica_json,'body');
+  r.call(_jamaica_json,'body');
 //  pl.win_bind('a[href$=main_menu]','click',function(e){pl.get(this.href,function(json){pl('body').html(Reggae.call(json).toDom())},'json')});
   pl.win_bind('form','submit',j.formSubmit);
   pl.win_bind('ul.navigation li a','click',j.menuClick);
@@ -21,31 +21,31 @@ j={
   ajax_defaults:{
     load:function(){pl('body').css('cursor','wait')},
     always:function(){pl('body').css('cursor','default');},
-    success:function(json){Reggae.call(json,'#'+this.id); },
+    success:function(json){r.call(json,'#'+this.id); },
     error:function(stat,json){
       var err=JSON.parse(json);
       var attrs=err[1];
       var frm_id=this.id;
       if (attrs.error_type=='validation') {
         for (col in attrs.error_details) {
-          pl('#'+frm_id+' [id$=__'+col+']').addClass('errorCol').after(Reggae.call(["p",{"class":"errorMsg"},attrs.error_details[col]]).toDom());
+          pl('#'+frm_id+' [id$=__'+col+']').addClass('errorCol').after(r.call(["p",{"class":"errorMsg"},attrs.error_details[col]]).toDom());
         }
       }
     },
   },
   make_ajax_params:function(params){
     return pl.extend(params,
-        pl.extend(pl.get_callbacks.call(this,j.ajax_defaults),{
-          dataType:'json',
-          url:this.href || this.action,
-          type: this.method ? this.method.toUpperCase() : 'GET'
-        })
+      pl.extend(pl.get_callbacks.call(this,j.ajax_defaults),{
+        dataType:'json',
+        url:this.href || this.action,
+        type: this.method ? this.method.toUpperCase() : 'GET'
+      })
     );
   },
   menuClick:function(e){
     e.preventDefault();
     var target='#'+pl(this).parents('.navigation').attr('id').replace(/__navigation$/,'__content');
-    pl.ajax(j.make_ajax_params.call(this,{success:function(json){Reggae.call(json,target)}}))
+    pl.ajax(j.make_ajax_params.call(this,{success:function(json){r.call(json,target)}}))
   },
   formSubmit:function(e){
     e.preventDefault();
@@ -69,7 +69,7 @@ j={
   instanceActionClick:function(e){
     var frm=pl(this).parents('form');
     var url=frm.attr('action')+'/'+pl(this).attr('class').replace(/.* /,'');
-    pl.ajax(j.make_ajax_params.call({href:url},{success:function(json){frm.after(Reggae.call(json).toDom())}}))
+    pl.ajax(j.make_ajax_params.call({href:url},{success:function(json){frm.after(r.call(json).toDom())}}))
   },
   deleteInstance:function(e){
     var frm=pl(this).parents('form');
