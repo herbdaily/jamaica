@@ -8,9 +8,9 @@ VALUE_INDEX=3;
 String.prototype.humanize=function(){return pl.map(this.replace(/^_/,'').split('_'),function(w){return w[0].toUpperCase()+w.slice(1)}).join(' ');}
 pl(function(){
   r.call(_jamaica_json,'body');
-//  pl.win_bind('a[href$=main_menu]','click',function(e){pl.get(this.href,function(json){pl('body').html(Reggae.call(json).toDom())},'json')});
+  pl('#main_menu__section').append('<div id="current_content" class="content active"></div>');
   pl.win_bind('form','submit',j.formSubmit);
-  pl.win_bind('ul.navigation li a','click',j.menuClick);
+  pl.win_bind('.navigation li a','click',j.menuClick);
   pl.win_bind('.editable','click',j.toggleColStat);
   pl.win_bind('.editing input,.editing textarea','keydown',j.colEditKeydown);
   pl.win_bind('.instanceAction','click',j.instanceActionClick);
@@ -44,8 +44,9 @@ j={
   },
   menuClick:function(e){
     e.preventDefault();
-    var target='#'+pl(this).parents('.navigation').attr('id').replace(/__navigation$/,'__content');
-    pl.ajax(j.make_ajax_params.call(this,{success:function(json){r.call(json,target)}}))
+    //var target='#'+pl(this).parents('.navigation').attr('id').replace(/__navigation$/,'__content');
+    var target='#current_content';
+    pl.ajax(j.make_ajax_params.call(this,{success:function(json){r.call(json,target)}}));
   },
   formSubmit:function(e){
     e.preventDefault();

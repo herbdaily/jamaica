@@ -5,7 +5,7 @@ module Marley
     # It will have its actual UI metadata in the global variable '_jamaica_json'
     # and onDocumentReady, this will be turned into the client UI.
     def initialize(opts={})
-      @opts={:name => 'Application',:css => '', :js => ''}.merge(opts)
+      @opts={:app_name => 'Application',:css => '', :js => ''}.merge(opts)
       @client_dir="#{File.dirname(__FILE__)}/client/"
       @libs = Dir.glob("#{@client_dir}*.js")
       @styles = [ 'jamaica.css' ]

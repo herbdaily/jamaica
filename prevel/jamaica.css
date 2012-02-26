@@ -60,9 +60,6 @@ input[type=submit],
   text-align:center;
   min-width:15em;
 }
-.navigation li p a {
-  display:inline-block;
-}
 input[type=button]:hover,
 .navigation li a:hover,
 .instanceActions a:hover {
@@ -82,64 +79,53 @@ input[type=button]:hover,
 	margin: 2em auto;
 	width: 90%;
 }
-#main_menu__section > h1 {
+h1{
   background: #398235;
   border-bottom: 1px solid #398235;
-  -moz-border-radius-topright: .5em;
-  -moz-border-radius-topleft: .5em;
-  border-top-right-radius: .5em;
-  border-top-left-radius: .5em;
+  -moz-border-radius: .5em;
+  border-radius: .5em;
   color: #fff;
   font: bold 167%/150% "Rockwell STD", Rockwell, sans-serif;
   margin: 0 0 1em;
   text-align: center;
-  text-transform: capitalize;
 }
-#main_menu__navigation {
-	border-bottom: 1px solid #398235;
-	margin: 0 2em 2em;
-	padding: 0 0 2em;
-	text-align: center;
-  min-width:15em;
-  vertical-align:top;
+#main_menu__section > h1 {
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-bottomright: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
-#main_menu__navigation li {
-	display: inline-block;
-	margin: 0 2em;
-  width:auto;
-}
-.content .section h1 {
+.navigation h1 {
+  font-size:150%;
+  width:100%;
   padding 0;
-  margin: 0 2em;
 }
-		.navigation li {
-      list-style:none;
-			margin: 2em 1em;
-		}
-    .content .navigation, .content .content {display:inline-block;}
-    .content .navigation {min-width:20em;width:15%;}
-    .content .content {width:auto;min-width:50%;}
-		.instanceContainer {
-      position:relative;
-			border: 1px solid #398235;
-			-moz-border-radius: 8px;
-			border-radius: 8px;
-			margin: 0 0 2em;
-		}
-		.instanceContainer .instanceContainer{margin:0 0 2em 2em;}
-		.colContainer div {
-			display: inline-block;
-		}
-		.instanceActions {overflow: hidden;}
-			.instanceActions a,
-			.instance input[type=submit],
-      .instance input[type=button]{
-				float: right;
-				margin: 0;
-				width: auto;
-			}
+.navigation li { list-style:none; margin: 1em; }
+
+.navigation {min-width:20em;width:20%;padding:0;margin:0;display:inline-block;}
+.content{display:inline-block;width:60%;}
+
+.instanceContainer {
+  position:relative;
+  border: 1px solid #398235;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  margin: 0 0 2em;
+}
+.instanceContainer .instanceContainer{margin:0 0 2em 2em;}
+.colContainer div {
+  display: inline-block;
+}
+.instanceActions {overflow: hidden;}
+  .instanceActions a,
+  .instance input[type=submit],
+  .instance input[type=button]{
+    float: right;
+    margin: 0;
+    width: auto;
+  }
 .errorCol {background: #febebe;}
 .errorMsg {
-	color: #EA8989;
-	font: bold italic 77% sans-serif;
+color: #EA8989;
+font: bold italic 77% sans-serif;
 }

@@ -1,5 +1,5 @@
 r=function(target){
-  this.isNodeSpec=function(){return this[0] && this[0].constructor==String && this[1] && this[1].constructor==Object};
+  this.isNodeSpec=function(){return this[0] && pl.type(this[0],'str') && this[1] && pl.type(this[1], 'obj')};
   this.nodeType=this[0];
   this.attrs=this[1];
   this.content=this[2];
@@ -70,16 +70,23 @@ r.nodeTypes={
     return ["div",{"class":"message"},[["h2",{},m[1].title],["p",{},m[1].description]]];
   },
   "section":function(m){
+    if (r.sectionTypes[m.attrs.name]){ return r.sectionTypes[m.attrs.name]};
     var attrs=m.attrs;
-    var nav=pl.map(attrs.navigation,function(i){return ["li",{"class":attrs.name+'__nav'},[i]]});
+    //need to fix and use below
+    function get_nav(n){
+     return ["ul",{"class":"navigation"},
+      pl.map(attrs.navigation,function(i){return ["li",{},[i]]})];
+    }
+    var nav=pl.map(attrs.navigation,function(i){return ["li",{},[i]]});
     return ["div",{"class":"section","id":attrs.name+"__section"},
       [ ["h1",{},attrs.title],
       ["div",{"class":"menuDescription"},attrs.description],
-      ["ul",{"id":attrs.name+"__navigation","class":"navigation"},nav],
-      ["div",{"id":attrs.name+"__content","class":"content"},m.content[0] ? m.content : " "] ]
+      ["ul",{"class":"navigation"},nav],
+      m.content[0] ? m.content : " " ]
     ];
   },
   "instance":function(i) {
+    if (r.instanceTypes[i.attrs.name]){ return r.instanceTypes[i.attrs.name]};
     var ctl;
     var attrs=i.attrs;
     var instance_id=attrs.new_rec ? 'new' : attrs.url.replace(/.*\//,'')
@@ -160,6 +167,8 @@ r.nodeTypes={
     return ["div",{"class":"instanceContainer"},content];
   }
   };
+r.instanceTypes={}
+r.sectionTypes={}
 r.domFuncs={
   'str' : function(){ return document.createTextNode(this);},
   'int' : function(){ return document.createTextNode(this);},
@@ -177,4 +186,7 @@ r.domFuncs={
       return pl.map(this, function(e){return r.call(e).toDom()})
     }
   }
-}
+};
+r.toDom=function(){
+  r.domFuncs[pl.type(this)].call(this);
+};
