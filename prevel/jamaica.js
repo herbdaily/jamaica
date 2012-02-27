@@ -11,6 +11,7 @@ pl(function(){
   pl('#main_menu__section').append('<div id="current_content" class="content active"></div>');
   pl.win_bind('form','submit',j.formSubmit);
   pl.win_bind('.navigation li a','click',j.menuClick);
+  pl.win_bind('.navigation li h1','click',j.toggleNav);
   pl.win_bind('.editable','click',j.toggleColStat);
   pl.win_bind('.editing input,.editing textarea','keydown',j.colEditKeydown);
   pl.win_bind('.instanceAction','click',j.instanceActionClick);
@@ -51,6 +52,9 @@ j={
   formSubmit:function(e){
     e.preventDefault();
     pl.ajax(j.make_ajax_params.call(this,{data:pl.serialize(this.id)}))
+  },
+  toggleNav:function(e){
+    pl(pl(this).parents('li').elements[0]).toggleClass('collapsed');
   },
   toggleColStat:function(e){
     p=this.selector ? this : pl(this);
