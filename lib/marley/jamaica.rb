@@ -7,7 +7,7 @@ module Marley
     def initialize(opts={})
       @opts={:app_name => 'Application',:css => '', :js => ''}.merge(opts)
       @client_dir="#{File.dirname(__FILE__)}/client/"
-      @libs = Dir.glob("#{@client_dir}*.js")
+      @libs = Dir.glob("#{@client_dir}*.js").sort
       @styles = [ 'jamaica.css' ]
     end
     def joint(joint_d,joint_name)
