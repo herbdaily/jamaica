@@ -12,8 +12,6 @@ body {background: #C9DE96; color: #000; font:13px/1.231 sans-serif; *font-size:s
 #main_menu__section > .navigation {
   display:block;
   float:left;
-  min-width:20em;
-  max-width:30em;
   width:20%;
   height:85%;
   overflow:auto;
@@ -27,12 +25,10 @@ body {background: #C9DE96; color: #000; font:13px/1.231 sans-serif; *font-size:s
 
 .content{
   float:left;
-  width:70%;
+  width:75%;
   height:85%;
   overflow:auto;
-  margin:0 2em;
-  border:solid 1px;
-  border-radius:.5em;
+  margin:0 1em;
 }
 
 input, textarea {
@@ -141,8 +137,8 @@ li.collapsed ul{display:none;}
 .instanceContainer {
   position:relative;
   border: 1px solid #398235;
-  border-radius: 8px;
-  margin: 0 0 2em;
+  border-radius: .5em;
+  margin: .5em 0;
 }
 .instanceContainer .instanceContainer{margin:0 0 2em 2em;}
 .colContainer div {
