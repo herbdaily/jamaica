@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{marley-jamaica}
-  s.version = "0.0.3"
+  s.version = "0.0.4"
   s.summary = %q{Jamaica Reggae client with library for Marley}
   s.description = %q{A simple client for the Reggae data interchange format}
   s.authors     = ["Herb Daily"]
